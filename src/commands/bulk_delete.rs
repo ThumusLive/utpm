@@ -1,10 +1,8 @@
-use serde_json::json;
-
-use crate::utils::state::{Error, ResponseKind::*, Responses, Result};
+use crate::utils::state::{Error, Result};
 
 use super::{unlink, BulkDeleteArgs, UnlinkArgs};
 
-pub fn run(cmd: &BulkDeleteArgs, res: &mut Responses) -> Result<bool> {
+pub fn run(cmd: &BulkDeleteArgs) -> Result<bool> {
     let mut vec: Vec<Error> = Vec::new();
     for name in &cmd.names {
         let name_and_version = name
@@ -22,23 +20,17 @@ pub fn run(cmd: &BulkDeleteArgs, res: &mut Responses) -> Result<bool> {
                 None
             },
         };
-        match unlink::run(&ulnk, res) {
+        match unlink::run(&ulnk) {
             Ok(_) => (),
             Err(err) => {
                 vec.push(err);
             }
         };
     }
-    res.pushs(vec![
-        Value(json!({
-            "success": cmd.names.len() - vec.len(),
-            "failed": vec.len(),
-        })),
-        Message(format!(
-            "{}/{} successful",
-            cmd.names.len() - vec.len(),
-            cmd.names.len()
-        )),
-    ]);
+    println!(
+        "{}/{} successful",
+        cmd.names.len() - vec.len(),
+        cmd.names.len()
+    );
     Ok(true)
 }

@@ -1,0 +1,12 @@
+[package]
+name = "a"
+version = "1.0.0"
+entrypoint = "main.typ"
+
+[tool.utpm]
+version = "3"
+types = "Package"
+
+[template]
+path = "template"
+entrypoint = "main.typ"

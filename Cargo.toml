@@ -17,17 +17,19 @@ spdx = { version = "0.10.2", features = ["text"] }
 clap = { version = "4.4.2", features = ["derive"] }
 git2 = "0.18.0"
 owo-colors = "3.5.0"
+strum = { version = "0.26.2", features = ["derive"] }
+typst-project = { git = "https://github.com/tingerrr/typst-project" }
 
 [[bin]]
 name = "utpm"
 path = "src/main.rs"
 
 [[bin]]
-name = "utpm-portable"
-path = "src/portable.rs"
+name = "utpm-CI"
+path = "src/ci.rs"
 
 [features]
-portable = []
+ci = []
 
 # For future dependencies check and other things, it will be usefull
 # Reduce size

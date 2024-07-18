@@ -5,7 +5,7 @@ use std::{
 
 use super::state::{Error, ErrorKind, Result};
 
-#[cfg(not(feature = "portable"))]
+#[cfg(not(feature = "CI"))]
 pub fn get_data_dir() -> String {
     match dirs::data_local_dir() {
         Some(dir) => match dir.to_str() {
@@ -31,9 +31,9 @@ pub fn get_ssh_dir() -> Result<String> {
     Ok(get_home_dir()? + "/.ssh")
 }
 
-#[cfg(feature = "portable")]
+#[cfg(feature = "CI")]
 pub fn get_data_dir() -> String {
-    get_current_dir().unwrap_or("./".to_string()) + "/utpmp"
+    get_current_dir().unwrap_or("./".to_string()) + "/.utpm"
 }
 
 pub fn d_packages() -> String {
@@ -80,3 +80,4 @@ pub fn check_existing_symlink(path: &String) -> bool {
     };
     x.file_type().is_symlink()
 }
+

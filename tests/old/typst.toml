@@ -1,0 +1,18 @@
+[package]
+name = "testl"
+version = "1.9.0"
+entrypoint = "lib.typ"
+authors = ["me"]
+license = "MIT"
+description = "idk"
+repository = ""
+homepage = ""
+keywords = ["key"]
+compiler = "0.8.0"
+exclude = [""]
+
+[utpm]
+version = "2"
+namespace = "local"
+types = "Package"
+dependencies = ["https://github.com/Thumuss/yash.thumus.eu", "https://github.com/Thumuss/yash.thumus.eu", "https://github.com/Thumuss/app.thumus.eu", "git@github.com:Thumuss/app.thumus.eu.git"]

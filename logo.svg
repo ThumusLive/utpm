@@ -1,0 +1,224 @@
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="479"
+    height="154" viewBox="0 0 359.25 115.5">
+    <clipPath id="a">
+        <path transform="scale(.24)" d="M0 0h1496.875v481.25H0z" fill-rule="evenodd" />
+    </clipPath>
+
+    <clipPath id="b">
+        <path transform="scale(.24)" d="M0 0h1500v515.625H0z" />
+    </clipPath>
+    <g clip-path="url(#b)">
+        <clipPath id="c">
+            <path transform="scale(.24)" d="M0 0h1496.875v481.25H0z" />
+        </clipPath>
+        <g clip-path="url(#c)">
+            <clipPath id="d">
+                <path transform="scale(.24)" d="M0 0h1496.875v481.25H0z" />
+            </clipPath>
+            <g clip-path="url(#d)">
+                <clipPath id="e">
+                    <path transform="scale(.24)" d="M1051.23 25.654h445.826v427.458H1051.23z" />
+                </clipPath>
+                <g clip-path="url(#e)">
+                    <clipPath id="f">
+                        <path transform="scale(.24)"
+                            d="m1273.688 25.654 222.457 129.43v168.599l-222.457 129.43-222.458-129.43v-168.6l222.457-129.429z" />
+                    </clipPath>
+                    <g clip-path="url(#f)">
+                        <path d="M252.295 6.157h106.598v102.59H252.295z" fill="#5ce1e6" />
+                    </g>
+                </g>
+            </g>
+        </g>
+    </g>
+    <clipPath id="g">
+        <path transform="scale(.24)" d="M0 0h1500v515.625H0z" />
+    </clipPath>
+    <g clip-path="url(#g)">
+        <clipPath id="h">
+            <path transform="scale(.24)" d="M0 0h1496.875v481.25H0z" />
+        </clipPath>
+        <g clip-path="url(#h)">
+            <clipPath id="i">
+                <path transform="scale(.24)" d="M0 0h1496.875v481.25H0z" />
+            </clipPath>
+            <g clip-path="url(#i)">
+                <clipPath id="j">
+                    <path transform="scale(.24)" d="M1051.23 25.654h443.75V453.78h-443.75z" />
+                </clipPath>
+                <g clip-path="url(#j)">
+                    <clipPath id="k">
+                        <path transform="scale(.24)" d="M1051.23 25.666h444.873V454.36H1051.23z" />
+                    </clipPath>
+                    <g clip-path="url(#k)">
+                        <clipPath id="l">
+                            <path transform="scale(.24)"
+                                d="m1273.667 25.666 222.437 129.417v168.584l-222.437 129.417-222.437-129.417V155.083l222.437-129.417z" />
+                        </clipPath>
+                        <g clip-path="url(#l)">
+                            <path stroke-width="3" fill="none" stroke="#14827f"
+                                d="m305.68 6.16 53.385 31.06v40.46l-53.385 31.06-53.385-31.06V37.22L305.68 6.16z" />
+                        </g>
+                    </g>
+                </g>
+            </g>
+        </g>
+    </g>
+    <clipPath id="m">
+        <path transform="scale(.24)" d="M0 0h1500v515.625H0z" />
+    </clipPath>
+    <g clip-path="url(#m)">
+        <clipPath id="n">
+            <path transform="scale(.24)" d="M0 0h1496.875v481.25H0z" />
+        </clipPath>
+        <g clip-path="url(#n)">
+            <clipPath id="o">
+                <path transform="scale(.24)" d="M0 0h1496.875v481.25H0z" />
+            </clipPath>
+            <g clip-path="url(#o)">
+                <clipPath id="p">
+                    <path transform="scale(.24)" d="M1093.717 107.293h360.678v345.82h-360.678z" />
+                </clipPath>
+                <g clip-path="url(#p)">
+                    <clipPath id="q">
+                        <path transform="scale(.24)"
+                            d="m1273.687 107.293 179.971 104.71v136.4l-179.97 104.71-179.971-104.71v-136.4l179.97-104.71z" />
+                    </clipPath>
+                    <g clip-path="url(#q)">
+                        <path d="M262.492 25.75h86.239v82.997h-86.239z" fill="#0cc0df" />
+                    </g>
+                </g>
+            </g>
+        </g>
+    </g>
+    <clipPath id="r">
+        <path transform="scale(.24)" d="M0 0h1500v515.625H0z" />
+    </clipPath>
+    <g clip-path="url(#r)">
+        <clipPath id="s">
+            <path transform="scale(.24)" d="M0 0h1496.875v481.25H0z" />
+        </clipPath>
+        <g clip-path="url(#s)">
+            <clipPath id="t">
+                <path transform="scale(.24)" d="M0 0h1496.875v481.25H0z" />
+            </clipPath>
+            <g clip-path="url(#t)">
+                <clipPath id="u">
+                    <path transform="scale(.24)" d="M1093.717 107.293h359.375v346.875h-359.375z" />
+                </clipPath>
+                <g clip-path="url(#u)">
+                    <clipPath id="v">
+                        <path transform="scale(.24)" d="M1093.717 107.298h359.912v346.825h-359.912z" />
+                    </clipPath>
+                    <g clip-path="url(#v)">
+                        <clipPath id="w">
+                            <path transform="scale(.24)"
+                                d="M1273.673 107.298 1453.629 212v136.388l-179.956 104.701-179.956-104.701V212l179.956-104.702z" />
+                        </clipPath>
+                        <g clip-path="url(#w)">
+                            <path stroke-width="3" fill="none" stroke="#14827f"
+                                d="M305.682 25.752 348.87 50.88v32.733l-43.19 25.128-43.189-25.128V50.88l43.19-25.128z" />
+                        </g>
+                    </g>
+                </g>
+            </g>
+        </g>
+    </g>
+    <clipPath id="x">
+        <path transform="scale(.24)" d="M0 0h1500v515.625H0z" />
+    </clipPath>
+    <g clip-path="url(#x)">
+        <clipPath id="y">
+            <path transform="scale(.24)" d="M0 0h1496.875v481.25H0z" />
+        </clipPath>
+        <g clip-path="url(#y)">
+            <clipPath id="z">
+                <path transform="scale(.24)" d="M0 0h1496.875v481.25H0z" />
+            </clipPath>
+            <g clip-path="url(#z)">
+                <clipPath id="A">
+                    <path transform="scale(.24)" d="M1148.332 159.766h251.224V400.64h-251.224z" />
+                </clipPath>
+                <g clip-path="url(#A)">
+                    <clipPath id="B">
+                        <path transform="scale(.24)"
+                            d="m1273.687 159.766 125.356 72.934v95.006l-125.356 72.934-125.355-72.934V232.7l125.355-72.934z" />
+                    </clipPath>
+                    <g clip-path="url(#B)">
+                        <path d="M275.6 38.344h60.068v57.81H275.6z" fill="#239dad" />
+                    </g>
+                </g>
+            </g>
+        </g>
+    </g>
+    <clipPath id="C">
+        <path transform="scale(.24)" d="M0 0h1500v515.625H0z" />
+    </clipPath>
+    <g clip-path="url(#C)">
+        <clipPath id="D">
+            <path transform="scale(.24)" d="M0 0h1496.875v481.25H0z" />
+        </clipPath>
+        <g clip-path="url(#D)">
+            <clipPath id="E">
+                <path transform="scale(.24)" d="M0 0h1496.875v481.25H0z" />
+            </clipPath>
+            <g clip-path="url(#E)">
+                <clipPath id="F">
+                    <path transform="scale(.24)" d="M1148.332 159.766h250v240.625h-250z" />
+                </clipPath>
+                <g clip-path="url(#F)">
+                    <clipPath id="G">
+                        <path transform="scale(.24)" d="M1148.332 159.777h250.684v241.567h-250.684z" />
+                    </clipPath>
+                    <g clip-path="url(#G)">
+                        <clipPath id="H">
+                            <path transform="scale(.24)"
+                                d="m1273.674 159.777 125.342 72.926v94.996l-125.342 72.926-125.342-72.926v-94.996l125.342-72.926z" />
+                        </clipPath>
+                        <g clip-path="url(#H)">
+                            <path stroke-width="3" fill="none" stroke="#14827f"
+                                d="m305.682 38.346 30.082 17.503v22.799L305.682 96.15 275.6 78.648v-22.8l30.082-17.502z" />
+                        </g>
+                    </g>
+                </g>
+            </g>
+        </g>
+    </g>
+    <clipPath id="I">
+        <path transform="scale(.24)" d="M0 0h1496.875v481.25H0z" fill-rule="evenodd" />
+    </clipPath>
+    <g clip-path="url(#I)">
+        <path stroke-width="3.9052499999999997" fill="none" stroke="#14827f"
+            d="M68.94 61.03c0 6.678-2.11 11.768-6.327 15.27-4.206 3.5-10.192 5.251-17.957 5.251-7.765 0-13.768-1.75-18.008-5.252-4.23-3.5-6.344-8.59-6.344-15.27V31.86H35.99V60.82c0 2.75.734 4.94 2.201 6.57 1.468 1.629 3.6 2.443 6.396 2.443s4.94-.826 6.43-2.478c1.491-1.653 2.236-3.83 2.236-6.535V31.858H68.94V61.03z" />
+        <symbol id="J">
+            <path
+                d="M.685.289C.685.195.655.123.596.074A.385.385 0 0 0 .343 0a.39.39 0 0 0-.254.074C.029.124 0 .195 0 .289V.7h.221V.292c0-.039.01-.07.031-.093.02-.023.05-.034.09-.034.04 0 .07.012.09.035a.131.131 0 0 1 .032.092V.7h.221V.289z" />
+        </symbol>
+        <use xlink:href="#J" transform="matrix(70.995 0 0 -70.995 20.306 81.554)" fill-opacity="0" />
+        <path stroke-width="3.9052499999999997" fill="none" stroke="#14827f"
+            d="M107.562 44.355v36.347H91.876V44.355h-16.05V31.858h47.717v12.497h-15.98z" />
+        <symbol id="K">
+            <path d="M.447.512V0H.226v.512H0v.176h.672V.512H.447z" />
+        </symbol>
+        <use xlink:href="#K" transform="matrix(70.995 0 0 -70.995 75.83 80.702)" fill-opacity="0" />
+        <path stroke-width="3.9052499999999997" fill="none" stroke="#14827f"
+            d="M158.11 31.858c3.027 0 5.725.7 8.094 2.098 2.368 1.398 4.212 3.316 5.529 5.754 1.329 2.438 1.993 5.171 1.993 8.198v.919c0 3.028-.664 5.772-1.993 8.233-1.317 2.461-3.16 4.391-5.53 5.79-2.368 1.397-5.066 2.097-8.094 2.097h-11.717v15.755h-15.686V31.858h27.403zm-11.718 21.649h6.465c1.653 0 2.895-.422 3.727-1.265.832-.855 1.248-2.017 1.248-3.484v-.572c0-1.514-.416-2.681-1.248-3.501-.832-.832-2.074-1.248-3.727-1.248h-6.465v10.07zm77.533 27.195v-17.61c0-2.172.081-4.408.243-6.708.173-2.3.352-4.23.537-5.789.185-1.56.3-2.554.347-2.981h-.278l-9.013 33.088h-12.289l-9.082-33.019h-.277c.046.428.173 1.41.381 2.947.208 1.536.405 3.455.59 5.754.196 2.3.294 4.536.294 6.708v17.61h-14.403V31.858h22.15l7.385 28.183h.277l7.314-28.183h21.372v48.844h-15.548z" />
+        <symbol id="L">
+            <path
+                d="M.386.688c.043 0 .08-.01.114-.03A.203.203 0 0 0 .578.577.235.235 0 0 0 .606.462V.449A.24.24 0 0 0 .578.333.21.21 0 0 0 .386.222H.221V0H0v.688h.386M.221.383h.091c.023 0 .04.006.052.018A.066.066 0 0 1 .382.45v.008c0 .021-.006.038-.018.049C.353.519.335.525.312.525H.221V.383z" />
+        </symbol>
+        <symbol id="M">
+            <path
+                d="M.605 0v.248a1.507 1.507 0 0 0 .016.218H.617L.49 0H.317L.189.465H.185A5.792 5.792 0 0 1 .199.342C.202.31.203.279.203.248V0H0v.688h.312L.416.291H.42l.103.397h.301V0H.605z" />
+        </symbol>
+        <use xlink:href="#L" transform="matrix(70.995 0 0 -70.995 130.708 80.702)" fill-opacity="0" />
+        <use xlink:href="#M" transform="matrix(70.995 0 0 -70.995 180.97 80.702)" fill-opacity="0" />
+        <g data-name="H1">
+            <use xlink:href="#J" transform="matrix(70.995 0 0 -70.995 20.306 81.554)" fill="#85dbd9" />
+            <use xlink:href="#K" transform="matrix(70.995 0 0 -70.995 75.83 80.702)" fill="#239dad" />
+            <use xlink:href="#L" transform="matrix(70.995 0 0 -70.995 130.708 80.702)"
+                fill="#85dbd9" />
+            <use xlink:href="#M" transform="matrix(70.995 0 0 -70.995 180.97 80.702)" fill="#85dbd9" />
+        </g>
+    </g>
+</svg>

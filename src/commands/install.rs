@@ -7,8 +7,8 @@ use crate::{
             check_path_dir, check_path_file, d_packages, datalocalutpm, get_current_dir,
             get_ssh_dir,
         },
-        state::{Error, ErrorKind, Responses, Result},
-        TypstConfig,
+        specs::{Extra, TypstConfig},
+        state::{Error, ErrorKind, Result},
     },
 };
 use git2::{build::RepoBuilder, Cred, FetchOptions, RemoteCallbacks, Repository};
@@ -16,16 +16,16 @@ use owo_colors::OwoColorize;
 
 use super::{link, InstallArgs};
 
-pub fn run(cmd: &InstallArgs, res: &mut Responses) -> Result<bool> {
+pub fn run(cmd: &InstallArgs) -> Result<bool> {
     let path = format!("{}/tmp", datalocalutpm());
     if check_path_dir(&path) {
         fs::remove_dir_all(path)?;
     }
-    init(cmd, res, 0)?;
+    init(cmd, 0)?;
     Ok(true)
 }
 
-pub fn init(cmd: &InstallArgs, res: &mut Responses, i: usize) -> Result<bool> {
+pub fn init(cmd: &InstallArgs, i: usize) -> Result<bool> {
     let path = if cmd.url.is_none() {
         get_current_dir()?
     } else {
@@ -76,11 +76,7 @@ pub fn init(cmd: &InstallArgs, res: &mut Responses, i: usize) -> Result<bool> {
     let utpm = file.utpm;
     let namespace = utpm
         .clone()
-        .unwrap_or(crate::utils::Extra {
-            version: None,
-            namespace: Some("local".to_string()),
-            dependencies: None,
-        })
+        .unwrap_or(Extra::new(None, Some("local".to_string()), None))
         .namespace
         .unwrap_or("local".into());
 
@@ -110,7 +106,7 @@ pub fn init(cmd: &InstallArgs, res: &mut Responses, i: usize) -> Result<bool> {
                         force: cmd.force,
                         url: Some(a.to_string()),
                     };
-                    init(&ins, res, i * vec_depend.len() + y)?;
+                    init(&ins, i * vec_depend.len() + y)?;
                     Ok(true)
                 })
                 .collect::<Vec<Result<bool>>>();
@@ -127,7 +123,7 @@ pub fn init(cmd: &InstallArgs, res: &mut Responses, i: usize) -> Result<bool> {
             no_copy: false,
         };
 
-        link::run(&lnk, Some(path.clone()), res)?; //TODO: change here too
+        link::run(&lnk, Some(path.clone()))?; //TODO: change here too
         fs::remove_dir_all(&path)?;
         println!(
             "{}",

@@ -1,14 +1,16 @@
 // Linker
 pub mod bulk_delete;
 pub mod create;
-pub mod info;
 pub mod install;
 pub mod link;
-pub mod list;
+pub mod tree;
 pub mod package_path;
 pub mod unlink;
+pub mod list;
 
 use clap::{Parser, Subcommand};
+
+use crate::utils::specs::{Categorie, Discipline};
 
 #[derive(Parser, Clone, Debug)]
 pub struct CreateArgs {
@@ -71,6 +73,21 @@ pub struct CreateArgs {
     /// Populate
     #[arg(short = 'p', long)]
     populate: bool,
+
+    #[arg(short = 'C', long)]
+    categories: Option<Vec<Categorie>>,
+
+    #[arg(short = 'D', long)]
+    disciplines: Option<Vec<Discipline>>,
+
+    #[arg(long, requires = "template")]
+    template_path: Option<String>,
+
+    #[arg(long, requires = "template")]
+    template_entrypoint: Option<String>,
+
+    #[arg(long)]
+    template_thumbnail: Option<String>,
 }
 
 #[derive(Parser, Clone, Debug)]
@@ -117,13 +134,6 @@ pub struct BulkDeleteArgs {
 }
 
 #[derive(Parser, Clone, Debug)]
-pub struct InfoArgs {
-    /// The repository you want to check
-    #[arg(short, long)]
-    url: Option<String>,
-}
-
-#[derive(Parser, Clone, Debug)]
 pub struct InstallArgs {
     /// If you want to install a specific package
     pub url: Option<String>,
@@ -139,12 +149,15 @@ pub enum Commands {
     Create(CreateArgs),
     /// Link your project to your dirs
     Link(LinkArgs),
-    /// List all of the package in the local folder
+
+    /// List all of packages from your dir, in a form of a tree
+    Tree,
+
+    /// List all of packages from your dir, in a form of a list
     List,
+
     /// Display path to typst packages folder
     PackagesPath,
-
-    Info(InfoArgs),
 
     /// Delete package previously install with utpm
     Unlink(UnlinkArgs),
@@ -157,13 +170,9 @@ pub enum Commands {
 }
 
 #[derive(Parser)]
-#[command(author = "Thumus", version = "2.1.0")]
+#[command(author = "Thumus", version = "3.0.0")]
 /// An unofficial typst package manager for your projects.
 pub struct Cli {
     #[command(subcommand)]
     pub command: Commands,
-
-    /// Output everything into a json format. Available on every commands.
-    #[arg(short = 'j', long, global = true)]
-    pub json: bool,
 }

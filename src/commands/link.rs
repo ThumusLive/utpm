@@ -1,23 +1,22 @@
 use owo_colors::OwoColorize;
-use serde_json::json;
 use std::fs;
 
 use crate::utils::{
     copy_dir_all,
     paths::{check_path_dir, d_packages, get_current_dir},
-    state::{Error, ErrorKind, ResponseKind::*, Responses, Result},
-    symlink_all, Extra, TypstConfig,
+    state::{Error, ErrorKind, Result},
+    symlink_all, specs::{Extra, TypstConfig},
 };
 
 use super::LinkArgs;
 
-pub fn run(cmd: &LinkArgs, path: Option<String>, res: &mut Responses) -> Result<bool> {
+pub fn run(cmd: &LinkArgs, path: Option<String>) -> Result<bool> {
     let curr = path.unwrap_or(get_current_dir()?);
 
     let config = TypstConfig::load(&(curr.clone() + "/typst.toml"));
     let namespace = config
         .utpm
-        .unwrap_or(Extra::new())
+        .unwrap_or(Extra::default())
         .namespace
         .unwrap_or("local".into());
 
@@ -42,22 +41,17 @@ pub fn run(cmd: &LinkArgs, path: Option<String>, res: &mut Responses) -> Result<
 
     if cmd.no_copy {
         symlink_all(&curr, &path)?;
-        let s = format!(
+        println!(
             "Project linked to: {} \nTry importing with:\n #import \"@{}/{}:{}\": *",
             path, namespace, name, version
         );
-        res.push(Value(json!({
-            "message": s,
-        })));
+
     } else {
         copy_dir_all(&curr, &path)?;
-        let s = format!(
+        println!(
             "Project copied to: {} \nTry importing with:\n #import \"@{}/{}:{}\": *",
             path, namespace, name, version
         );
-        res.push(Value(json!({
-            "message": s,
-        })));
     }
     Ok(true)
 }

@@ -1,6 +1,5 @@
 use owo_colors::OwoColorize;
 use semver::Version;
-use serde_json::{json, Value};
 use std::{fmt, io::Error as IError};
 
 /// All errors implemented in utpm
@@ -22,84 +21,6 @@ pub enum ErrorKind {
     SemVer,
 }
 
-/// Types
-#[derive(Debug)]
-pub enum ResponseKind {
-    Message(String),
-    Value(Value),
-}
-
-pub struct Responses {
-    messages: Vec<ResponseKind>,
-    pub json: bool,
-}
-
-impl Responses {
-    pub fn new(json: bool) -> Self {
-        Self {
-            messages: vec![],
-            json,
-        }
-    }
-
-    pub fn pushs(&mut self, vals: Vec<ResponseKind>) {
-        for e in vals {
-            self.push(e);
-        }
-    }
-
-    pub fn push(&mut self, val: ResponseKind) {
-        if self.json {
-            self.messages.push(val);
-        } else {
-            match val {
-                ResponseKind::Message(string) => println!("{}", string),
-                ResponseKind::Value(val) => println!("{}", val.to_string()),
-            }
-        }
-    }
-
-    pub fn to_str(&self) -> String {
-        let mut string: String = "".into();
-        for message in &self.messages {
-            match message {
-                ResponseKind::Message(str) => string = format!("{}{}\n", string, str),
-                ResponseKind::Value(_) => todo!(),
-            };
-        }
-        string
-    }
-
-    pub fn to_json(&self) -> Value {
-        serde_json::from_str(
-            serde_json::to_string(
-                &self
-                    .messages
-                    .iter()
-                    .map(|a| match a {
-                        ResponseKind::Message(str) => {
-                            println!(
-                                "{:?}",
-                                str.split(" ")
-                                    .map(|a| a.to_string() + " ")
-                                    .collect::<String>()
-                            );
-                            json!({ "message": str })
-                        }
-                        ResponseKind::Value(val) => val.clone(),
-                    })
-                    .collect::<Value>(),
-            )
-            .unwrap()
-            .as_str(),
-        )
-        .unwrap()
-    }
-
-    pub fn display(&self, f: &mut fmt::Formatter) -> fmt::Result {
-        write!(f, "{}", self.to_str())
-    }
-}
 
 impl ErrorKind {
     pub fn message(&self) -> String {
@@ -146,13 +67,6 @@ impl Error {
             message: None,
         }
     }
-    pub fn json(&self) -> Value {
-        let message = self.message.clone().unwrap_or(self.kind.message());
-        json!({
-            "type": self.kind.to_string(),
-            "message": message,
-        })
-    }
     pub fn to_str(&self) -> String {
         let kind_message = format!("{} Error", self.kind.to_string());
         if let Some(message) = &self.message {
@@ -173,11 +87,6 @@ impl fmt::Display for Error {
     }
 }
 
-impl fmt::Display for Responses {
-    fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
-        self.display(f)
-    }
-}
 
 //TODO: impl errors.
 
