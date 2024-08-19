@@ -22,6 +22,6 @@ macro_rules! write_manifest {
     };
     ($var:expr) => {
         let tomlfy: String = toml::to_string_pretty($var)?;
-        fs::write("./typst.toml", tomlfy)?
+        fs::write(get_current_dir()? + "/typst.toml", tomlfy)?
     };
 }
