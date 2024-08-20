@@ -2,7 +2,7 @@ Set Width 1300
 Set Height 750
 Require utpm
 
-Output assets/gifs/install.gif
+Output "assets/gifs/install.gif"
 
 Type@100ms "utpm help"
 

@@ -2,9 +2,9 @@ Set Width 600
 Set Height 550
 Require utpm
 
-Output assets/gifs/tree.gif
+Output "assets/gifs/tree.gif"
 
-Type@100ms "utpm tree"
+Type@100ms "utpm pkg tree"
 
 Sleep 500ms
 

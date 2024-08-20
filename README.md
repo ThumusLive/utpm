@@ -30,6 +30,7 @@
 - [x] 📃 List all your packages
   - [x] 🗃️ As a list `utpm pkg list`
   - [x] 🌲 As a tree `utpm pkg tree`
+- [x] 🔎 Cloning package to edit them in the way you want! `utpm ws clone`
 - [ ] 💥 Customize your output (json or classic, `-j` in your commands)
 - [x] 🗄️ Delete and bulk delete your packages (`utpm pkg unlink`, `utpm pkg bulk-delete`)
 - [ ] 🚀 Publish it directly to Typst!
@@ -59,8 +60,12 @@ _A command to delete multiple packages at once!_
 #### ✨ Create
 _Create a `typst.toml` to make a package_
 
+Vous pouvez le faire de deux façon, soit de manière interactive soit seulement à travers une commande, montrée ci dessous:
+
 ![create_cli.gif](./assets/gifs/create_cli.gif)
 <!-- TODO: GIF v2 -->
+
+
 
 </div>
 <div id="help">
@@ -69,12 +74,17 @@ _Create a `typst.toml` to make a package_
 #### ❓ Help
 
 _Generate a help message_
+
+Utilisable partout à l'aide de `--help`. Cela permet d'avoir des informations détaillés sur l'utilisation des commandes et des options.
+
 ![help.gif](./assets/gifs/help.gif)
 
 </div>
 <div id="install">
 
 #### 📦 Install
+Installe les dépendances ajoutés par la commande `utpm ws add`.  
+
 ![install.gif](./assets/gifs/install.gif)
 <!-- TODO: GIF & text-->
 
@@ -122,7 +132,7 @@ _A simple command to show all packages installed in your local dir like a tree!_
 
 ## ⚡ Install
 
-You will need Cargo and Rust.
+You will need Cargo and Rust .
 
 The easiest way to install utpm using Cargo is:
 

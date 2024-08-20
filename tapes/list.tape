@@ -1,13 +1,13 @@
-Set Width 600
-Set Height 400
+Set Width 1100
+Set Height 450
 Require utpm
 
-Output assets/gifs/list.gif
+Output "assets/gifs/list.gif"
 
-Type@100ms "utpm list"
+Type@100ms "utpm pkg list"
 
 Sleep 500ms
 
 Enter
 
-Sleep 5s
+Sleep 3s
