@@ -1,0 +1,56 @@
+on:
+  push:
+    branches:
+      - dev*
+
+env:
+  CARGO_TERM_COLOR: always
+
+permissions:
+  contents: write
+  discussions: write
+
+jobs:
+  pre-release:
+    name: Nightly-release
+    runs-on: ${{ matrix.os }}
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+        - target: x86_64-unknown-linux-musl
+          os: ubuntu-latest
+          cross: true
+        - target: aarch64-unknown-linux-musl
+          os: ubuntu-latest
+          cross: true
+        - target: armv7-unknown-linux-musleabi
+          os: ubuntu-latest
+          cross: true
+        - target: x86_64-apple-darwin
+          os: macos-latest
+          cross: false
+        - target: aarch64-apple-darwin
+          os: macos-latest
+          cross: false
+        - target: x86_64-pc-windows-msvc
+          os: windows-latest
+          cross: false
+    steps:
+      - uses: actions/checkout@main
+      - uses: dtolnay/rust-toolchain@master
+        with:
+          target: ${{ matrix.target }}
+          toolchain: stable
+
+      - name: Run Cargo | Cross
+        if: ${{ matrix.cross }}
+        run: |
+          cargo install cross --git https://github.com/cross-rs/cross.git --locked --rev 085092ca
+          cross build --bin utpm -p utpm --release --target ${{ matrix.target }}
+
+      - name: Run Cargo | ${{ matrix.os }}
+        if: ${{ !matrix.cross }}
+        run: |
+          cargo build --bin utpm -p utpm --release --target ${{ matrix.target }}
+      

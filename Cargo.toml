@@ -1,33 +1,56 @@
 [package]
+build = "build.rs"
 name = "utpm"
-version = "2.1.0"
+version = "0.1.0"
 edition = "2021"
-
-# See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
+description = "UTPM is a package manager for local and remote Typst packages. Quickly create and manage projects and templates on your system, and publish them directly to Typst Universe."
+authors = ["Thomas QUEMIN <tquemin@thumus.eu>"]
+documentation = "https://utpm.thumus.eu"
+repository = "https://github.com/Thumuss/utpm"
+license = "MIT"
+keywords = ["typst", "packages"]
+categories = ["command-line-utilities"]
+exclude = ["/target", "/.github"]
 
 [dependencies]
 dirs = "5.0"
 serde_json = "1.0"
 serde = { version = "1.0", features = ["derive"] }
 serde_with = "1.0"
-toml = { version = "0.7.5", features = ["display"] }
+toml = { version = "^0.8.14", features = ["display"] }
 inquire = "0.6.2"
 semver = { version = "1.0.18", features = ["serde"] }
 spdx = { version = "0.10.2", features = ["text"] }
 clap = { version = "4.4.2", features = ["derive"] }
-git2 = "0.18.0"
+git2 = "^0.19.0"
 owo-colors = "3.5.0"
+strum = { version = "0.26.2", features = ["derive"] }
+typst-project = { git = "https://github.com/tingerrr/typst-project", rev = "8462942ef0c783acf339e715b5e24b2dba423de1" }
+openssl = { version = "0.10", features = ["vendored"] }
+tracing = { version = "0.1.40", features = ["attributes"] }
+tracing-subscriber = "0.3.18"
+clap_complete = "4.5.12"
+shadow-rs = "0.31.1"
+typst-kit = "0.12.0"
+typst-syntax = "0.12.0"
+regex = "1.10.6"
+
+[build-dependencies]
+shadow-rs = "0.31.1"
 
 [[bin]]
 name = "utpm"
 path = "src/main.rs"
+build = "build.rs"
 
 [[bin]]
-name = "utpm-portable"
-path = "src/portable.rs"
+name = "utpm-ci"
+path = "src/ci.rs"
+build = "build.rs"
 
 [features]
-portable = []
+ci = []
+nightly = []
 
 # For future dependencies check and other things, it will be usefull
 # Reduce size

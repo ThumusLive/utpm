@@ -1,16 +1,9 @@
-use serde_json::json;
+use tracing::instrument;
 
-use crate::utils::{
-    paths::d_packages,
-    state::{ResponseKind::*, Responses, Result},
-};
+use crate::utils::{paths::d_packages, state::Result};
 
-pub fn run(res: &mut Responses) -> Result<bool> {
-    res.pushs(vec![
-        Value(json!({
-            "path": d_packages(),
-        })),
-        Message(format!("Packages are located at: '{}'", d_packages())),
-    ]);
+#[instrument]
+pub fn run() -> Result<bool> {
+    println!("Packages are located at: '{}'", d_packages()?);
     Ok(true)
 }

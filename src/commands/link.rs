@@ -1,34 +1,48 @@
 use owo_colors::OwoColorize;
-use serde_json::json;
 use std::fs;
+use tracing::instrument;
+use typst_project::manifest::Manifest;
 
-use crate::utils::{
-    copy_dir_all,
-    paths::{check_path_dir, d_packages, get_current_dir},
-    state::{Error, ErrorKind, ResponseKind::*, Responses, Result},
-    symlink_all, Extra, TypstConfig,
+use crate::{
+    manifest,
+    utils::{
+        copy_dir_all,
+        paths::{c_packages, check_path_dir, d_packages, get_current_dir},
+        specs::Extra,
+        state::{Error, ErrorKind, Result},
+        symlink_all,
+    },
 };
 
 use super::LinkArgs;
 
-pub fn run(cmd: &LinkArgs, path: Option<String>, res: &mut Responses) -> Result<bool> {
+#[instrument]
+pub fn run(cmd: &LinkArgs, path: Option<String>, pt: bool) -> Result<bool> {
     let curr = path.unwrap_or(get_current_dir()?);
 
-    let config = TypstConfig::load(&(curr.clone() + "/typst.toml"));
-    let namespace = config
-        .utpm
-        .unwrap_or(Extra::new())
-        .namespace
-        .unwrap_or("local".into());
+    let config = manifest!(&curr);
+    let namespace = if let Some(value) = config.tool {
+        value
+            .get_section("utpm")?
+            .unwrap_or(Extra::default())
+            .namespace
+            .unwrap_or("local".into())
+    } else {
+        "local".into()
+    };
 
     let name = config.package.name;
     let version = config.package.version;
-    let path = format!("{}/{}/{}/{}", d_packages(), namespace, name, version);
+    let path = if namespace != "preview" {
+        format!("{}/{}/{}/{}", d_packages()?, namespace, name, version)
+    } else {
+        format!("{}/{}/{}/{}", c_packages()?, namespace, name, version)
+    };
     let binding = "Info:".yellow();
     let info = binding.bold();
     if check_path_dir(&path) && !cmd.force {
         return Err(Error::empty(ErrorKind::AlreadyExist(
-            name,
+            name.into(),
             version,
             format!("{}", info),
         )));
@@ -42,22 +56,20 @@ pub fn run(cmd: &LinkArgs, path: Option<String>, res: &mut Responses) -> Result<
 
     if cmd.no_copy {
         symlink_all(&curr, &path)?;
-        let s = format!(
-            "Project linked to: {} \nTry importing with:\n #import \"@{}/{}:{}\": *",
-            path, namespace, name, version
-        );
-        res.push(Value(json!({
-            "message": s,
-        })));
+        if pt {
+            println!(
+                "Project linked to: {} \nTry importing with:\n #import \"@{}/{}:{}\": *",
+                path, namespace, name, version
+            );
+        }
     } else {
         copy_dir_all(&curr, &path)?;
-        let s = format!(
-            "Project copied to: {} \nTry importing with:\n #import \"@{}/{}:{}\": *",
-            path, namespace, name, version
-        );
-        res.push(Value(json!({
-            "message": s,
-        })));
+        if pt {
+            println!(
+                "Project copied to: {} \nTry importing with:\n #import \"@{}/{}:{}\": *",
+                path, namespace, name, version
+            );
+        }
     }
     Ok(true)
 }

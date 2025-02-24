@@ -1,1 +1,0 @@
-#let var = "Hey I'm from main.typ!"

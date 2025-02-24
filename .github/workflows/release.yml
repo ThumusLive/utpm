@@ -1,21 +1,97 @@
 on:
-  release:
-    types: [created]
+  push:
+    branches:
+      - main
+
+env:
+  CARGO_TERM_COLOR: always
+
+permissions:
+  contents: write
+  discussions: write
 
 jobs:
-  release:
-    name: release ${{ matrix.target }}
-    runs-on: ubuntu-latest
+  pre-release:
+    name: Production-release
+    runs-on: ${{ matrix.os }}
     strategy:
       fail-fast: false
       matrix:
-        target: [x86_64-pc-windows-gnu, x86_64-unknown-linux-musl]
+        include:
+        - target: x86_64-unknown-linux-musl
+          os: ubuntu-latest
+          cross: true
+        - target: aarch64-unknown-linux-musl
+          os: ubuntu-latest
+          cross: true
+        - target: armv7-unknown-linux-musleabi
+          os: ubuntu-latest
+          cross: true
+        - target: x86_64-apple-darwin
+          os: macos-latest
+          cross: false
+        - target: aarch64-apple-darwin
+          os: macos-latest
+          cross: false
+        - target: x86_64-pc-windows-msvc
+          os: windows-latest
+          cross: false
     steps:
-      - uses: actions/checkout@v3
-      - name: Compile and release
-        uses: rust-build/rust-build.action@v1.4.4
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      - uses: actions/checkout@main
+      - uses: dtolnay/rust-toolchain@master
         with:
-          RUSTTARGET: ${{ matrix.target }}
-          EXTRA_FILES: "README.md LICENSE"
+          target: ${{ matrix.target }}
+          toolchain: stable
+
+      - name: Run Cargo | Cross
+        if: ${{ matrix.cross }}
+        run: |
+          cargo install cross --git https://github.com/cross-rs/cross.git --locked --rev 085092ca
+          cross build --bin utpm -p utpm --release --target ${{ matrix.target }}
+
+      - name: Run Cargo | ${{ matrix.os }}
+        if: ${{ !matrix.cross }}
+        run: |
+          cargo build --bin utpm -p utpm --release --target ${{ matrix.target }}
+          
+      - name: Create artifact directory
+        shell: bash
+        run: |
+          directory=utpm-${{ matrix.target }}
+          mkdir $directory
+          cp README.md LICENSE $directory
+          if [ -f target/${{ matrix.target }}/release/utpm.exe ]; then
+            cp target/${{ matrix.target }}/release/utpm.exe $directory
+            7z a -r $directory.zip $directory
+          else
+            cp target/${{ matrix.target }}/release/utpm $directory
+            tar cJf $directory.tar.xz $directory
+          fi
+          
+      - name: Get Next Version
+        id: semver
+        uses: ietf-tools/semver-action@v1
+        with:
+          token: ${{ github.token }}
+          branch: main
+
+      - name: Create a Release [${{ steps.semver.outputs.next }}]
+        uses: softprops/action-gh-release@v2
+        with:
+          token: "${{ secrets.GITHUB_TOKEN }}"
+          prerelease: false
+          tag_name: ${{ steps.semver.outputs.next }}
+          generate_release_notes: true
+          files: |
+            utpm-${{ matrix.target }}.*  
+
+      - name: Create a Release [Latest]
+        uses: softprops/action-gh-release@v2
+        with:
+          token: "${{ secrets.GITHUB_TOKEN }}"
+          prerelease: false
+          tag_name: latest
+          generate_release_notes: true
+          files: |
+            utpm-${{ matrix.target }}.*  
+      
