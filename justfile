@@ -1,55 +1,35 @@
 # Aliases
-alias t := tapes
-alias b := build
-alias btb := build-to-bin
-alias ctb := copy-to-bin
-alias bl := build-lw
-alias bltb := build-lw-to-bin 
-alias bnltb := buildn-lw-to-bin 
+alias b := build-release
+alias n := build-nightly
+alias u := upx
+alias c := copy
 
 # Variables
 builddir := "target/release/utpm"
 buildndir := "target/debug/utpm"
-tpscmd := `ls tapes`
-tpsdir := "tapes"
 bindir := "~/.cargo/bin/utpm"
+tjust := "target/just"
 
-# for e in {{tpscmd}}; do vhs {{tpsdir}}/$e; done
-# Make .gif for the readme (require vhs)
-tapes:
-    bash {{tpsdir}}/build.sh
+prepare:
+    mkdir -p {{tjust}}
 
-
-
-# Build UTPM
-build: format
+# Build UTPM release
+build-release: format prepare
     cargo build --release --bin utpm
+    cp {{builddir}} {{tjust}}/utpm
 
-# Build UTPM with nightly
-buildn: format
+# Build UTPM nightly
+build-nightly: format prepare
     cargo build --features nightly --bin utpm
+    cp {{builddir}} {{tjust}}/utpm
 
 # Copy utpm if exists.
-copy-to-bin:
-    cp {{builddir}} {{bindir}}
+copy:
+    cp {{tjust}}/utpm {{bindir}}
 
-# Copy utpm if exists.
-copyn-to-bin:
-    cp {{buildndir}} {{bindir}}
-
-# Build and copy
-build-to-bin: build && copy-to-bin
-
-# Build lightweight utpm (require upx)
-build-lw: build
-    upx --best --lzma {{builddir}}
-
-buildn-lw: buildn
-    upx --best --lzma {{buildndir}}
-
-# Build and copy lightweight
-build-lw-to-bin: build-lw && copy-to-bin
-buildn-lw-to-bin: buildn && copyn-to-bin
+# 
+upx:
+    upx --best --lzma {{tjust}}/utpm
 
 # Format with cargo
 format: 

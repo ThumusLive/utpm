@@ -3,6 +3,7 @@ use std::path::PathBuf;
 use tracing::{debug, error, info, instrument, warn};
 use typst_kit::{download::Downloader, package::PackageStorage};
 
+use crate::utils::regex_package;
 use crate::{build, utils::ProgressPrint};
 
 use crate::utils::{
@@ -36,7 +37,7 @@ pub fn run(cmd: &CloneArgs) -> Result<bool> {
             ));
         }
     }
-    let re = Regex::new(r"@([a-z]+)\/([a-z\-]+)\:(\d+)\.(\d+)\.(\d+)").unwrap();
+    let re: Regex = regex_package();
     let package: &String = &cmd.package;
     if let Some(cap) = re.captures(package) {
         let (_, [namespace, package, major, minor, patch]) = cap.extract();
@@ -80,6 +81,7 @@ pub fn run(cmd: &CloneArgs) -> Result<bool> {
             Downloader::new(format!("utpm/{}", build::COMMIT_HASH)),
         );
         let printer = &mut ProgressPrint {};
+        //todo: redownload = rm dir;
         return match pkg_sto.prepare_package(
             &PackageSpec {
                 namespace: namespace.into(),

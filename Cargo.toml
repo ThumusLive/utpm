@@ -14,26 +14,27 @@ exclude = ["/target", "/.github"]
 
 [dependencies]
 dirs = "5.0"
-serde_json = "1.0"
 serde = { version = "1.0", features = ["derive"] }
-serde_with = "1.0"
 toml = { version = "^0.8.14", features = ["display"] }
-inquire = "0.6.2"
+inquire = { version = "0.6.2", optional=true }
 semver = { version = "1.0.18", features = ["serde"] }
-spdx = { version = "0.10.2", features = ["text"] }
+spdx = { version = "0.10.2", features = ["text"], optional = true }
 clap = { version = "4.4.2", features = ["derive"] }
-git2 = "^0.19.0"
-owo-colors = "3.5.0"
-strum = { version = "0.26.2", features = ["derive"] }
+git2 = { version = "^0.19.0", optional = true }
 typst-project = { git = "https://github.com/tingerrr/typst-project", rev = "8462942ef0c783acf339e715b5e24b2dba423de1" }
-openssl = { version = "0.10", features = ["vendored"] }
+openssl = { version = "0.10", features = ["vendored"] } # ?
 tracing = { version = "0.1.40", features = ["attributes"] }
 tracing-subscriber = "0.3.18"
-clap_complete = "4.5.12"
+clap_complete = { version = "4.5.12", optional = true }
 shadow-rs = "0.31.1"
 typst-kit = "0.12.0"
-typst-syntax = "0.12.0"
-regex = "1.10.6"
+typst-syntax = { version = "0.12.0", optional = true }
+regex = { version = "1.10.6", optional = true }
+ignore = { version = "0.4.22", optional = true } 
+octocrab = { version = "0.42.1", optional = true }
+tokio = { version = "1.39.3", features = ["full"] }
+tokio-macros = "2.4.0"
+url = "2.5.2"
 
 [build-dependencies]
 shadow-rs = "0.31.1"
@@ -43,14 +44,26 @@ name = "utpm"
 path = "src/main.rs"
 build = "build.rs"
 
-[[bin]]
-name = "utpm-ci"
-path = "src/ci.rs"
-build = "build.rs"
-
 [features]
-ci = []
+default = ["full"]
 nightly = []
+full = ["workspace", "packages", "generate"]
+add = ["install"]
+bulk_delete = ["unlink"]
+clone = ["dep:regex", "dep:git2", "dep:typst-syntax"]
+init = ["dep:spdx", "dep:inquire"]
+delete = []
+generate = ["dep:clap_complete"]
+install = ["link", "dep:git2"]
+link = []
+list = []
+path = []
+publish = ["dep:git2", "dep:octocrab", "dep:ignore", "dep:regex"]
+tree = []
+unlink = ["dep:inquire", "dep:regex"]
+workspace = ["link", "init", "install", "add", "delete", "publish", "clone"]
+packages = ["tree", "list", "path", "unlink", "bulk_delete"]
+
 
 # For future dependencies check and other things, it will be usefull
 # Reduce size

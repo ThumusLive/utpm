@@ -1,4 +1,3 @@
-use owo_colors::OwoColorize;
 use std::fs;
 use tracing::instrument;
 
@@ -9,10 +8,10 @@ use crate::utils::{
 
 use super::ListTreeArgs;
 
-#[instrument]
+#[instrument(skip(cmd))]
 pub fn run(cmd: &ListTreeArgs) -> Result<bool> {
     let typ: String = d_packages()?;
-    println!("{}", "A list of your packages (WIP)\n".bold());
+    println!("A list of your packages (WIP)\n");
     if cmd.all {
         let preview: String = c_packages()?;
         read(typ)?;
@@ -41,17 +40,17 @@ fn read(typ: String) -> Result<bool> {
 
     for dir_res in dirs {
         let dir = dir_res?;
-        println!("@{}: ", dir.file_name().to_str().unwrap().green().bold());
+        println!("@{}: ", dir.file_name().to_str().unwrap());
         let subupdirs = fs::read_dir(dir.path())?;
 
         for dir_res in subupdirs {
             let dir = dir_res?;
-            print!("{}: ", dir.file_name().to_str().unwrap().green().bold());
+            print!("{}: ", dir.file_name().to_str().unwrap());
 
             let subdirs = fs::read_dir(dir.path())?;
             for sub_dir_res in subdirs {
                 let subdir = sub_dir_res?;
-                print!("{} ", subdir.file_name().to_str().unwrap().green());
+                print!("{} ", subdir.file_name().to_str().unwrap());
             }
             println!();
         }
@@ -60,28 +59,22 @@ fn read(typ: String) -> Result<bool> {
 }
 
 fn package_read(typ: &String) -> Result<bool> {
-    let dirs = fs::read_dir(&typ)?;
-
-    for dir_res in dirs {
+    for dir_res in fs::read_dir(&typ)? {
         let dir = dir_res?;
-        print!("{}: ", dir.file_name().to_str().unwrap().green().bold());
+        print!("{}: ", dir.file_name().to_str().unwrap());
     }
     println!();
     Ok(true)
 }
 
 fn namespace_read(typ: &String) -> Result<bool> {
-    let dirs = fs::read_dir(&typ)?;
-
-    for dir_res in dirs {
+    for dir_res in fs::read_dir(&typ)? {
         let dir = dir_res?;
-        println!("{}: ", dir.file_name().to_str().unwrap().green().bold());
-        let subupdirs = fs::read_dir(dir.path())?;
-
+        println!("{}: ", dir.file_name().to_str().unwrap());
         print!("- ");
-        for dir_res in subupdirs {
+        for dir_res in fs::read_dir(dir.path())? {
             let dir = dir_res?;
-            print!("{} ", dir.file_name().to_str().unwrap().green().bold());
+            print!("{} ", dir.file_name().to_str().unwrap());
         }
         println!();
     }

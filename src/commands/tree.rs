@@ -1,4 +1,3 @@
-use owo_colors::OwoColorize;
 use std::fs;
 use tracing::instrument;
 
@@ -11,10 +10,10 @@ use super::ListTreeArgs;
 
 use std::result::Result as R;
 
-#[instrument]
+#[instrument(skip(cmd))]
 pub fn run(cmd: &ListTreeArgs) -> Result<bool> {
     let typ: String = d_packages()?;
-    println!("{}", "Tree listing of your packages\n".bold());
+    println!("{}", "Tree listing of your packages\n");
     if cmd.all {
         let preview: String = c_packages()?;
         read(typ)?;
@@ -43,17 +42,17 @@ fn read(typ: String) -> Result<bool> {
 
     for dir_res in dirs {
         let dir = dir_res?;
-        println!("@{}:", dir.file_name().to_str().unwrap().green().bold());
+        println!("@{}:", dir.file_name().to_str().unwrap());
         let subupdirs = fs::read_dir(dir.path())?;
 
         for dir_res in subupdirs {
             let dir = dir_res?;
-            println!("  {}:", dir.file_name().to_str().unwrap().green().bold());
+            println!("  {}:", dir.file_name().to_str().unwrap());
 
             let subdirs = fs::read_dir(dir.path())?;
             for sub_dir_res in subdirs {
                 let subdir = sub_dir_res?;
-                println!("    - {}", subdir.file_name().to_str().unwrap().green());
+                println!("    - {}", subdir.file_name().to_str().unwrap());
             }
         }
     }

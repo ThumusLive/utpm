@@ -12,7 +12,7 @@ fn print_completions<G: Generator>(gen: G, cmd: &mut Command) {
     generate(gen, cmd, cmd.get_name().to_string(), &mut io::stdout());
 }
 
-#[instrument]
+#[instrument(skip(cmd))]
 pub fn run(cmd: &GenerateArgs) -> Result<bool> {
     let generator = cmd.generator;
     let mut cmd: Command = Cli::command();

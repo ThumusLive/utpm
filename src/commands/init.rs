@@ -7,20 +7,21 @@ use std::{
 };
 
 use inquire::{required, validator::Validation, Select, Text};
-use owo_colors::OwoColorize;
 use semver::Version;
 use toml::Table;
 use tracing::{info, instrument, trace, warn};
-
-use typst_project::manifest::{
-    author::{Author, Website},
-    categories::Category,
-    disciplines::Discipline,
-    ident::Ident,
-    license::License,
-    package::Package,
-    tool::Tool,
-    Manifest,
+use typst_project::{
+    heuristics::MANIFEST_FILE,
+    manifest::{
+        author::{Author, Website},
+        categories::Category,
+        disciplines::Discipline,
+        ident::Ident,
+        license::License,
+        package::Package,
+        tool::Tool,
+        Manifest,
+    },
 };
 
 use crate::{
@@ -32,13 +33,13 @@ use crate::{
     write_manifest,
 };
 
-use super::CreateInitArgs;
+use super::InitArgs;
 
-#[instrument]
-pub fn run(cmd: &mut CreateInitArgs) -> Result<bool> {
+#[instrument(skip(cmd))]
+pub fn run(cmd: &mut InitArgs) -> Result<bool> {
     let curr = get_current_dir()?;
     info!("Current dir: {}", curr);
-    let typ = curr.clone() + "/typst.toml";
+    let typ = curr.clone() + MANIFEST_FILE;
     info!("Current typst file: {}", typ);
 
     let mut extra = Extra::default();
@@ -136,10 +137,7 @@ pub fn run(cmd: &mut CreateInitArgs) -> Result<bool> {
     }
 
     if cmd.force {
-        warn!(
-            "{}",
-            "--force is a dangerous flag, use it cautiously".bold()
-        );
+        warn!("--force is a dangerous flag, use it cautiously");
     }
 
     if !cmd.cli {
@@ -154,7 +152,7 @@ pub fn run(cmd: &mut CreateInitArgs) -> Result<bool> {
         let template = Select::new("Do you want to create a template?", choice.clone()).prompt()?;
         let popu = Select::new(
             "Do you want to populate your package? Files like index.typ will be created",
-            choice.clone(),
+            choice,
         )
         .prompt()?;
 

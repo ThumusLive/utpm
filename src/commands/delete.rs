@@ -5,7 +5,7 @@ use tracing::instrument;
 use typst_project::manifest::Manifest;
 
 use crate::{
-    manifest,
+    load_manifest,
     utils::{
         paths::get_current_dir,
         specs::Extra,
@@ -16,9 +16,9 @@ use crate::{
 
 use super::DeleteArgs;
 
-#[instrument]
+#[instrument(skip(cmd))]
 pub fn run(cmd: &mut DeleteArgs) -> Result<bool> {
-    let mut config = manifest!();
+    let mut config = load_manifest!();
 
     if let Some(mut tool) = config.clone().tool {
         if let Some(ex) = tool.keys.get("utpm") {
